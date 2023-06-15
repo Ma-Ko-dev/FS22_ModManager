@@ -1,0 +1,4 @@
+Was muss der Farming Simulator 22 Mod Manager koennen um minimale funktionalitaet zu gewaehrleisten:
+- Er muss die Namen der mods im Ordner "mods" einlesen koennen.
+- Er muss aus einem beliebigen Savegame die datei "careerSavegame.xml" auslesen koennen um daraus die aktivierten mods zu erhalten.
+- Er muss vergleichen koennen welche mods aktiv sind, im mod ordner sind und ggf. nicht aktive mods aus dem ordner verschieben. (z.b. in einen modmanager mod ordner)
