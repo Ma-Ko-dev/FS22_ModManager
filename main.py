@@ -1,4 +1,5 @@
 import os
+import shutil
 import xml.etree.ElementTree as ET
 from paths import *
 
@@ -14,6 +15,14 @@ savegame_filename = "careerSavegame.xml"
 # modlisten
 modsInFolder = []
 modsInSave = []
+inactiveMods = []
+
+
+# check if the external mod folder exists. creates one if not
+def check_external_modfolder():
+    if not os.path.exists(EXTERNAL_MODFOLDER):
+        print("Creating new external Modfolder.")
+        os.makedirs(EXTERNAL_MODFOLDER)
 
 
 # Check if the important file, careerSavegame.xml, exists in the selected savegame.
@@ -49,7 +58,6 @@ def read_modfolder():
     mod_names = os.listdir(MODS_PATH)
 
     for mod_name in mod_names:
-        # print(mod_name)
         modsInFolder.append(mod_name)
 
 
@@ -57,16 +65,26 @@ def check_active():
     for mod in modsInFolder:
         if mod not in modsInSave:
             print(f"{mod} ist nur im Ordner.")
-            # TODO: Create function to move these mods to another folder
+            # print(os.path.join(MODS_PATH, mod))
+            inactiveMods.append(os.path.join(MODS_PATH, mod))
+
+
+def move_inactive():
+    for mod in inactiveMods:
+        print(f"Moving {mod} to {EXTERNAL_MODFOLDER}")
+        shutil.move(mod, EXTERNAL_MODFOLDER)
+        # inactiveMods.pop(0)
 
 
 if __name__ == '__main__':
-    print(MAIN_PATH)
-    print(MODS_PATH)
+    # print(MAIN_PATH)
+    # print(MODS_PATH)
     if check_savegamefile():
         # later we will "start" the whole progress here, for now for testing, things will work a bit different.
+        check_external_modfolder()
         read_savegame_file()
         read_modfolder()
         check_active()
+        move_inactive()
     else:
         print("Error in Savegame")
