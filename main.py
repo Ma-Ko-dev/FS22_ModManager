@@ -21,6 +21,7 @@ inactiveMods = []
 
 # check if the external mod folder exists. creates one if not
 def check_external_modfolder():
+    """Creates the "backup" folder for mods that are not in a savegame  if its not present."""
     if not os.path.exists(EXTERNAL_MODFOLDER):
         print("Creating new external Modfolder.")
         os.makedirs(EXTERNAL_MODFOLDER)
@@ -28,6 +29,7 @@ def check_external_modfolder():
 
 # Check if the important file, careerSavegame.xml, exists in the selected savegame.
 def check_savegamefile():
+    """Checks if the savegame we are trying to read exists."""
     if os.path.isfile(os.path.join(MAIN_PATH, savegame, savegame_filename)):
         return True
     else:
@@ -35,6 +37,7 @@ def check_savegamefile():
 
 
 def read_savegame_file():
+    """Reads the careerSavegame.xml and fills some lists with the corresponding information."""
     tree = ET.parse(os.path.join(MAIN_PATH, savegame, savegame_filename))
     root = tree.getroot()
     mod_entries = root.findall('mod')
@@ -53,10 +56,10 @@ def read_savegame_file():
         # print("Mod Version:", mod_version)
         # print("Mod Required:", mod_required)
         # print("Mod File Hash:", mod_file_hash)
-        # print("####################################################")
 
 
 def read_modfolder():
+    """Reads the games modfolder and saves all files as strings in a list for later use."""
     mod_names = os.listdir(MODS_PATH)
 
     for mod_name in mod_names:
@@ -64,21 +67,22 @@ def read_modfolder():
 
 
 def check_active():
+    """Compares the modsInFolder list against the modsInSave list and saves mods that are not in the savegame in a
+    seperate list."""
     for mod in modsInFolder:
         if mod not in modsInSave:
-            print(f"{mod} ist nur im Ordner.")
-            # print(os.path.join(MODS_PATH, mod))
             inactiveMods.append(os.path.join(MODS_PATH, mod))
 
 
 def move_inactive():
+    """Moves all mods that are inactive/not in the mod folder to the "backup" folder."""
     for mod in inactiveMods:
         print(f"Moving {mod} to {EXTERNAL_MODFOLDER}")
         shutil.move(mod, EXTERNAL_MODFOLDER)
-        # inactiveMods.pop(0)
 
 
 def create_modlist():
+    """Sorts and creates a textfile for a modlist (for sharing for example)."""
     modNames.sort()
     with open("modlist.txt", "w", encoding="utf-8") as file:
         for mod in modNames:
