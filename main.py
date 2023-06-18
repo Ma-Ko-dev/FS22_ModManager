@@ -1,6 +1,9 @@
 import os
 import shutil
 import xml.etree.ElementTree as ET
+import tkinter as tk
+from tkinter.font import Font
+# from tkinter import ttk
 from paths import *
 
 # Paths to FS22 main folder for mods and savegames. For some privacy i decided to hide my path names since they include
@@ -21,7 +24,7 @@ inactiveMods = []
 
 # check if the external mod folder exists. creates one if not
 def check_external_modfolder():
-    """Creates the "backup" folder for mods that are not in a savegame  if its not present."""
+    """Creates the "backup" folder for mods that are not in a savegame  if it's not present."""
     if not os.path.exists(EXTERNAL_MODFOLDER):
         print("Creating new external Modfolder.")
         os.makedirs(EXTERNAL_MODFOLDER)
@@ -89,14 +92,41 @@ def create_modlist():
             file.write(f"{mod}\n")
 
 
+def open_gui():
+    root = tk.Tk()
+
+    min_win_width = 300
+    min_win_height = 200
+    max_win_width = 800
+    max_win_height = 600
+    root.minsize(min_win_width, min_win_height)
+    root.maxsize(max_win_width, max_win_height)
+    root.title("Farming Simulator 22 ModManager")
+
+    headline_font = Font(family="Helvetica", size=15, weight="bold")
+    label_headline_text = "Farming Simulator 2022 ModManager"
+    label_headline = tk.Label(root, text=label_headline_text, font=headline_font)
+    label_headline.grid(row=0, column=0, sticky="nsew", padx=20)
+
+    label_savegame_text = "Welches Savegame soll bearbeitet werden:"
+    label_savegame = tk.Label(root, text=label_savegame_text)
+    label_savegame.grid(row=1, column=0, sticky="nsew", padx=20)
+
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+
+    root.mainloop()
+
+
 if __name__ == '__main__':
-    if check_savegamefile():
-        # later we will "start" the whole progress here, for now for testing, things will work a bit different.
-        check_external_modfolder()
-        read_savegame_file()
-        read_modfolder()
-        check_active()
-        move_inactive()
-        create_modlist()
-    else:
-        print("Error in Savegame")
+    # if check_savegamefile():
+    #     # later we will "start" the whole progress here, for now for testing, things will work a bit different.
+    #     check_external_modfolder()
+    #     read_savegame_file()
+    #     read_modfolder()
+    #     check_active()
+    #     move_inactive()
+    #     create_modlist()
+    # else:
+    #     print("Error in Savegame")
+    open_gui()
