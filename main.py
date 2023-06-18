@@ -15,6 +15,7 @@ savegame_filename = "careerSavegame.xml"
 # modlisten
 modsInFolder = []
 modsInSave = []
+modNames = []
 inactiveMods = []
 
 
@@ -40,6 +41,7 @@ def read_savegame_file():
 
     for mod in mod_entries:
         modsInSave.append(f"{mod.attrib['modName']}.zip")
+        modNames.append(f"{mod.attrib['title']}, Version: {mod.attrib['version']}")
         # mod_name = mod.attrib['modName']
         # mod_title = mod.attrib['title']
         # mod_version = mod.attrib['version']
@@ -76,9 +78,14 @@ def move_inactive():
         # inactiveMods.pop(0)
 
 
+def create_modlist():
+    modNames.sort()
+    with open("modlist.txt", "w", encoding="utf-8") as file:
+        for mod in modNames:
+            file.write(f"{mod}\n")
+
+
 if __name__ == '__main__':
-    # print(MAIN_PATH)
-    # print(MODS_PATH)
     if check_savegamefile():
         # later we will "start" the whole progress here, for now for testing, things will work a bit different.
         check_external_modfolder()
@@ -86,5 +93,6 @@ if __name__ == '__main__':
         read_modfolder()
         check_active()
         move_inactive()
+        create_modlist()
     else:
         print("Error in Savegame")

@@ -8,3 +8,4 @@ Minimum requirements are already done. It technically works if you know how to r
 For now, the bare bone ModManager can:
 - Read a savegame's active mods
 - Move all mods from the mod folder that are not in the savegame into a seperate folder.
+- Create a modlist as a textfile.
