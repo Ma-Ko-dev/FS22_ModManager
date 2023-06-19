@@ -3,8 +3,11 @@ import shutil
 import xml.etree.ElementTree as ET
 import tkinter as tk
 from tkinter.font import Font
-# from tkinter import ttk
+from tkinter import ttk
 from paths import *
+from GUI_tab1 import Tab1
+from GUI_tab2 import Tab2
+from GUI_tab3 import Tab3
 
 # Paths to FS22 main folder for mods and savegames. For some privacy i decided to hide my path names since they include
 # my full Name.
@@ -92,30 +95,30 @@ def create_modlist():
             file.write(f"{mod}\n")
 
 
-def open_gui():
-    root = tk.Tk()
-
-    min_win_width = 300
-    min_win_height = 200
-    max_win_width = 800
-    max_win_height = 600
-    root.minsize(min_win_width, min_win_height)
-    root.maxsize(max_win_width, max_win_height)
-    root.title("Farming Simulator 22 ModManager")
-
-    headline_font = Font(family="Helvetica", size=15, weight="bold")
-    label_headline_text = "Farming Simulator 2022 ModManager"
-    label_headline = tk.Label(root, text=label_headline_text, font=headline_font)
-    label_headline.grid(row=0, column=0, sticky="nsew", padx=20)
-
-    label_savegame_text = "Welches Savegame soll bearbeitet werden:"
-    label_savegame = tk.Label(root, text=label_savegame_text)
-    label_savegame.grid(row=1, column=0, sticky="nsew", padx=20)
-
-    root.grid_rowconfigure(0, weight=1)
-    root.grid_columnconfigure(0, weight=1)
-
-    root.mainloop()
+# GUI start
+# # Erstelle das Hauptfenster
+# root = tk.Tk()
+# root.title("Tabs mit Tkinter")
+# root.geometry("400x300")
+#
+# # Erstelle die Tab-Kontrolle
+# tab_control = ttk.Notebook(root)
+#
+# # Erstelle die Tabs
+# tab1 = Tab1(tab_control)
+# tab_control.add(tab1, text="Tab 1")
+#
+# tab2 = Tab2(tab_control)
+# tab_control.add(tab2, text="Tab 2")
+#
+# tab3 = Tab3(tab_control)
+# tab_control.add(tab3, text="Tab 3")
+#
+# # Packe die Tab-Kontrolle in das Hauptfenster
+# tab_control.pack(expand=1, fill="both")
+#
+# # Starte die Hauptfenster-Schleife
+# root.mainloop()
 
 
 if __name__ == '__main__':
@@ -129,4 +132,28 @@ if __name__ == '__main__':
     #     create_modlist()
     # else:
     #     print("Error in Savegame")
-    open_gui()
+
+    root = tk.Tk()
+    root.geometry("650x450")
+
+    main_frame = tk.Frame(root)
+    main_frame.pack(fill="both", expand=True)
+
+    tab_control = ttk.Notebook(main_frame)
+
+    tab1 = Tab1(tab_control)
+    tab_control.add(tab1, text="Tab 1")
+
+    tab2 = Tab2(tab_control)
+    tab_control.add(tab2, text="Tab 2")
+
+    tab3 = Tab3(tab_control)
+    tab_control.add(tab3, text="Tab 3")
+
+    tab_control.pack(fill="both", expand=True)
+
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+
+    root.mainloop()
+    # print("ModManager started.")
