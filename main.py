@@ -95,32 +95,6 @@ def create_modlist():
             file.write(f"{mod}\n")
 
 
-# GUI start
-# # Erstelle das Hauptfenster
-# root = tk.Tk()
-# root.title("Tabs mit Tkinter")
-# root.geometry("400x300")
-#
-# # Erstelle die Tab-Kontrolle
-# tab_control = ttk.Notebook(root)
-#
-# # Erstelle die Tabs
-# tab1 = Tab1(tab_control)
-# tab_control.add(tab1, text="Tab 1")
-#
-# tab2 = Tab2(tab_control)
-# tab_control.add(tab2, text="Tab 2")
-#
-# tab3 = Tab3(tab_control)
-# tab_control.add(tab3, text="Tab 3")
-#
-# # Packe die Tab-Kontrolle in das Hauptfenster
-# tab_control.pack(expand=1, fill="both")
-#
-# # Starte die Hauptfenster-Schleife
-# root.mainloop()
-
-
 if __name__ == '__main__':
     # if check_savegamefile():
     #     # later we will "start" the whole progress here, for now for testing, things will work a bit different.
