@@ -2,12 +2,11 @@ import os
 import shutil
 import xml.etree.ElementTree as ET
 import tkinter as tk
-from tkinter.font import Font
 from tkinter import ttk
 from paths import *
-from GUI_tab1 import Tab1
-from GUI_tab2 import Tab2
-from GUI_tab3 import Tab3
+from GUI.GUI_tab1 import Tab1
+from GUI.GUI_tab2 import Tab2
+from GUI.GUI_tab3 import Tab3
 
 # Paths to FS22 main folder for mods and savegames. For some privacy i decided to hide my path names since they include
 # my full Name.
